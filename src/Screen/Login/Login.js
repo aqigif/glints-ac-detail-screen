@@ -25,7 +25,7 @@ export default function Login(props) {
 
   const submitLogin = () => {
     if (dataRegister.email === Email && dataRegister.password === Password) {
-      props.navigation.navigate('Home');
+      props.navigation.navigate('MyBottomTab');
     } else {
       Alert.alert('Error', 'Email or Password is Wrong');
     }

@@ -38,7 +38,7 @@ export default function Register(props) {
         fullname: Fullname,
       }),
     );
-    props.navigation.navigate('Home');
+    props.navigation.navigate('MyBottomTab');
   };
 
   return (

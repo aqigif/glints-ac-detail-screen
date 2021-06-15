@@ -12,6 +12,8 @@ import Register from './src/Screen/Register/Register';
 import Login from './src/Screen/Login/Login';
 import profile from './src/Screen/Profile/profile';
 import review from './src/Screen/Review/review';
+import HomeDetails from './src/Screen/Home/HomeDetails';
+import HomeAddReview from './src/Screen/Home/HomeAddReview';
 
 const Stack = createStackNavigator();
 
@@ -51,11 +53,12 @@ const MyBottomTab = () => {
     <BottomTab.Navigator
       initialRouteName="Home"
       labeled={false}
-      activeColor="#f0edf6"
+      activeColor="black"
       barStyle={{backgroundColor: 'white'}}
       screenOptions={transitionScreen}>
       <BottomTab.Screen
         options={{
+          tabBarColor: 'pink',
           tabBarIcon: () => (
             <Feather name="message-circle" size={23} color="black" />
           ),

@@ -27,6 +27,7 @@ export default function Kartu() {
               flexDirection: 'row',
               paddingHorizontal: moderateScale(10),
               paddingVertical: moderateScale(2),
+              marginBottom: moderateScale(20),
             }}>
             <Feather name="message-circle" size={moderateScale(15)} />
             <Roboto title="123" size={moderateScale(12)} />

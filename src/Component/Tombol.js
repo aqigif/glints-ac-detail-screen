@@ -8,7 +8,7 @@ const Tombol = ({text, action}) => {
   return (
     <TouchableOpacity onPress={action} style={styles.button}>
       <MaterialIcon name="movie-outline" size={18} color="black" />
-      <Roboto style={styles.textButton} title={text} size={16} />
+      <Roboto style={styles.textButton} title={text} size={14} />
     </TouchableOpacity>
   );
 };

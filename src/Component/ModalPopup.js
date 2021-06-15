@@ -7,10 +7,8 @@ import {
   TouchableOpacity,
   Modal,
 } from 'react-native';
+
 import {Card} from 'react-native-elements';
-
-import ModalPopup from './ModalPopup';
-
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
 import Roboto from '../Component/Roboto';
@@ -21,13 +19,30 @@ import {
   widthPercentageToDP,
 } from 'react-native-responsive-screen';
 
-export default function Kartu() {
-  const [visible, setVisible] = useState(false);
+export default function ModalPopup({visible}, props) {
+  const [showModal, setShowModal] = useState(visible);
+  useEffect(() => {
+    toggleModal();
+  }, [visible]);
+  const toggleModal = () => {
+    if (visible) {
+      setShowModal(true);
+    } else {
+      setShowModal(false);
+    }
+  };
   return (
-    <View>
-      <ModalPopup visible={visible} />
-      <TouchableOpacity onPress={() => setVisible(true)} activeOpacity={0.8}>
-        <View style={styles.card}>
+    <Modal
+      onRequestClose={() => setShowModal(!showModal)}
+      transparent
+      visible={showModal}>
+      <View style={styles.modalBackground}>
+        <View style={styles.modal}>
+          <View style={styles.closeModal}>
+            <TouchableOpacity onPress={() => setShowModal(!showModal)}>
+              <AntDesign name="close" size={moderateScale(25)} />
+            </TouchableOpacity>
+          </View>
           <Card>
             <Image
               source={require('../Assets/Images/tes.png')}
@@ -60,12 +75,31 @@ export default function Kartu() {
             </View>
           </Card>
         </View>
-      </TouchableOpacity>
-    </View>
+      </View>
+    </Modal>
   );
 }
 
 const styles = StyleSheet.create({
+  modalBackground: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.2)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modal: {
+    alignSelf: 'center',
+    width: widthPercentageToDP(99),
+    height: heightPercentageToDP(80),
+    backgroundColor: 'white',
+    borderRadius: 20,
+    paddingVertical: moderateScale(10),
+  },
+  closeModal: {
+    alignItems: 'flex-end',
+    paddingRight: moderateScale(20),
+  },
+
   image: {
     width: moderateScale(300),
     height: moderateScale(168),
@@ -74,16 +108,6 @@ const styles = StyleSheet.create({
   underline: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingVertical: moderateScale(10),
-  },
-  card: {
-    width: moderateScale(326),
-    height: moderateScale(319),
-  },
-  card: {
-    backgroundColor: 'white',
-    flex: 1,
-    borderRadius: 20,
     paddingVertical: moderateScale(10),
   },
 });

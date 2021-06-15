@@ -12,6 +12,7 @@ import Register from './src/Screen/Register/Register';
 import Login from './src/Screen/Login/Login';
 import profile from './src/Screen/Profile/profile';
 import review from './src/Screen/Review/review';
+import editProfile from './src/Screen/Profile/editProfile';
 
 const Stack = createStackNavigator();
 
@@ -41,6 +42,11 @@ export default function Root() {
           name="Login"
           component={Login}
         />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="editProfile"
+          component={editProfile}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -51,13 +57,13 @@ const MyBottomTab = () => {
     <BottomTab.Navigator
       initialRouteName="Home"
       labeled={false}
-      activeColor="#f0edf6"
+      activeColor="black"
       barStyle={{backgroundColor: 'white'}}
-      screenOptions={transitionScreen}>
+      screenOptions={() => transitionScreen}>
       <BottomTab.Screen
         options={{
-          tabBarIcon: () => (
-            <Feather name="message-circle" size={23} color="black" />
+          tabBarIcon: ({color}) => (
+            <Feather name="message-circle" size={23} color={color} />
           ),
         }}
         name="Review"
@@ -65,14 +71,19 @@ const MyBottomTab = () => {
       />
       <BottomTab.Screen
         options={{
-          tabBarIcon: () => <Foundation name="home" size={23} color="black" />,
+          tabBarIcon: ({color}) => (
+            <Foundation name="home" size={23} color={color} />
+          ),
         }}
         name="Home"
         component={Home}
       />
       <BottomTab.Screen
+        listeners={false}
         options={{
-          tabBarIcon: () => <Fontisto name="person" size={23} color="black" />,
+          tabBarIcon: ({color}) => (
+            <Fontisto name="person" size={23} color={color} />
+          ),
         }}
         name="Profile"
         component={profile}

@@ -71,7 +71,7 @@ const MyBottomTab = () => {
           ),
         }}
         name="Review"
-        component={HomeAddReview}
+        component={userReview}
       />
       <BottomTab.Screen
         options={{

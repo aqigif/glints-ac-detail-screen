@@ -21,7 +21,7 @@ export default function profile(props) {
       </View>
       <Submit
         press={() => props.navigation.navigate('editProfile')}
-        title="Edit Profile"
+        title="SETTINGS"
       />
     </View>
   );

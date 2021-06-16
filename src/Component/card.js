@@ -25,7 +25,7 @@ export default function Kartu() {
   const [visible, setVisible] = useState(false);
   return (
     <View>
-      <ModalPopup visible={visible} />
+      <ModalPopup onClose={() => setVisible(false)} visible={visible} />
       <TouchableOpacity onPress={() => setVisible(true)} activeOpacity={0.8}>
         <View style={styles.card}>
           <Card>

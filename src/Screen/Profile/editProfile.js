@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, ScrollView, SafeAreaView} from 'react-native';
 import {
   heightPercentageToDP,
   widthPercentageToDP,
@@ -33,7 +33,7 @@ export default function editProfile(props) {
     props.navigation.navigate('Home');
   };
   return (
-    <View>
+    <SafeAreaView>
       <Head
         LeftPress={() => props.navigation.navigate('Profile')}
         leftIcon="close"
@@ -41,7 +41,7 @@ export default function editProfile(props) {
         rightIcon="check"
         RightPress={submitData}
       />
-      <View style={styles.backgroundColor}>
+      <ScrollView contentContainerStyle={styles.backgroundColor}>
         <View style={styles.profileBG}>
           <Fontisto name="person" size={moderateScale(60)} />
         </View>
@@ -61,17 +61,22 @@ export default function editProfile(props) {
         <View style={styles.submit}>
           <Submit
             title="LOG OUT"
-            press={() => props.navigation.navigate('Register')}
+            press={() =>
+              props.navigation.reset({
+                index: 0,
+                routes: [{name: 'Login'}],
+              })
+            }
           />
         </View>
-      </View>
-    </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   backgroundColor: {
-    height: heightPercentageToDP(100),
+    height: heightPercentageToDP(90),
     width: widthPercentageToDP(100),
     backgroundColor: 'black',
     alignItems: 'center',

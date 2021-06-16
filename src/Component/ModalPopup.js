@@ -19,27 +19,13 @@ import {
   widthPercentageToDP,
 } from 'react-native-responsive-screen';
 
-export default function ModalPopup({visible}, props) {
-  const [showModal, setShowModal] = useState(visible);
-  useEffect(() => {
-    toggleModal();
-  }, [visible]);
-  const toggleModal = () => {
-    if (visible) {
-      setShowModal(true);
-    } else {
-      setShowModal(false);
-    }
-  };
+export default function ModalPopup({visible, onClose}) {
   return (
-    <Modal
-      onRequestClose={() => setShowModal(!showModal)}
-      transparent
-      visible={showModal}>
+    <Modal transparent visible={visible}>
       <View style={styles.modalBackground}>
         <View style={styles.modal}>
           <View style={styles.closeModal}>
-            <TouchableOpacity onPress={() => setShowModal(!showModal)}>
+            <TouchableOpacity onPress={onClose}>
               <AntDesign name="close" size={moderateScale(25)} />
             </TouchableOpacity>
           </View>

@@ -1,6 +1,5 @@
 import React from 'react';
 import {StyleSheet, Text, SafeAreaView, View, Image} from 'react-native';
-import {createStackNavigator} from '@react-navigation/stack';
 import {Card, Rating} from 'react-native-elements/';
 import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
 import {moderateScale} from 'react-native-size-matters';
@@ -10,74 +9,80 @@ import Fontisto from 'react-native-vector-icons/Fontisto';
 import Foundation from 'react-native-vector-icons/Foundation';
 import Roboto from '../../Component/Roboto';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
+import Head from '../../Component/Header';
 
-const Stack = createStackNavigator();
-
-export default function userReview() {
+export default function userReview(props) {
   return (
     <SafeAreaView style={styles.fullScreen}>
+      <Head
+        title="Your Review"
+        leftIcon="left"
+        LeftPress={() => props.navigation.navigate('Home')}
+      />
       <ScrollView style={styles.scrollView}>
-        <Card containerStyle={styles.card}>
-          <View style={{flexDirection: 'row'}}>
-            <Image
-              source={require('../../Assets/Images/tes.png')}
-              style={styles.image}
-              resizeMode="contain"
-            />
-            <View
-              style={{
-                flexDirection: 'column',
-                flex: 1,
-              }}>
-              <Roboto title="JUDUL & Tahun" size={moderateScale(18)} />
-              <Roboto title="Reviewed" size={moderateScale(14)} />
+        <View style={styles.containerCard}>
+          <Card containerStyle={styles.card}>
+            <View style={{flexDirection: 'row'}}>
+              <Image
+                source={require('../../Assets/Images/tes.png')}
+                style={styles.image}
+                resizeMode="contain"
+              />
               <View
-                style={{flexDirection: 'row', paddingTop: moderateScale(10)}}>
-                <View>
-                  <Rating
-                    ratingCount={1}
-                    imageSize={20}
-                    startingValue={1}
-                    readonly
-                  />
+                style={{
+                  flexDirection: 'column',
+                  flex: 1,
+                }}>
+                <Roboto title="JUDUL & Tahun" size={moderateScale(18)} />
+                <Roboto title="Reviewed" size={moderateScale(14)} />
+                <View
+                  style={{flexDirection: 'row', paddingTop: moderateScale(10)}}>
+                  <View>
+                    <Rating
+                      ratingCount={1}
+                      imageSize={20}
+                      startingValue={1}
+                      readonly
+                    />
+                  </View>
+                  <View>
+                    <Roboto
+                      title={`Skor`}
+                      style={{paddingLeft: moderateScale(2)}}
+                    />
+                  </View>
                 </View>
-                <View>
-                  <Roboto
-                    title={`Skor`}
-                    style={{paddingLeft: moderateScale(2)}}
-                  />
-                </View>
-              </View>
-              <View
-                style={{flexDirection: 'row', paddingTop: moderateScale(10)}}>
-                <TouchableOpacity>
-                  <MaterialIcon
-                    name="edit"
-                    size={18}
-                    color="white"
-                    style={styles.icon}
-                  />
-                </TouchableOpacity>
+                <View
+                  style={{flexDirection: 'row', paddingTop: moderateScale(10)}}>
+                  <TouchableOpacity>
+                    <MaterialIcon
+                      name="edit"
+                      size={18}
+                      color="white"
+                      style={styles.icon}
+                    />
+                  </TouchableOpacity>
 
-                <TouchableOpacity style={styles.icon}>
-                  <Foundation name="trash" size={18} color="white" />
-                </TouchableOpacity>
+                  <TouchableOpacity style={styles.icon}>
+                    <Foundation name="trash" size={18} color="white" />
+                  </TouchableOpacity>
+                </View>
               </View>
-            </View>
-          </View>
-          <View>
-            <View style={styles.padding}>
-              <Roboto title="Heading" size={moderateScale(12)} />
             </View>
             <View>
-              <Roboto
-                title="This movie should encourage each and every one of us to become a better person, treat everyone with respect and make each other feel like they belong in this world, instead of making them feel isolated."
-                size={moderateScale(12)}
-                textAlign="justify"
-              />
+              <View style={styles.padding}>
+                <Roboto title="Heading" size={moderateScale(16)} />
+              </View>
+              <View style={styles.containerDesc}>
+                <Roboto
+                  title="This movie should encourage each and every one of us to become a better person, treat everyone with respect and make each other feel like they belong in this world, instead of making them feel isolated."
+                  size={moderateScale(12)}
+                  textAlign="justify"
+                />
+              </View>
             </View>
-          </View>
-        </Card>
+          </Card>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
@@ -87,13 +92,11 @@ const styles = StyleSheet.create({
   fullScreen: {
     backgroundColor: 'black',
     flex: 1,
-    paddingVertical: moderateScale(10),
-    paddingHorizontal: moderateScale(10),
-    borderBottomEndRadius: 20,
-    borderBottomStartRadius: 20,
+    borderBottomEndRadius: 10,
+    borderBottomStartRadius: 10,
   },
   padding: {
-    paddingVertical: moderateScale(10),
+    paddingVertical: moderateScale(2),
   },
   icon: {
     height: moderateScale(20),
@@ -118,13 +121,14 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingVertical: moderateScale(10),
   },
-  card: {
-    width: moderateScale(326),
-    height: moderateScale(319),
+  containerCard: {
+    flex: 1,
+    alignItems: 'center',
   },
   card: {
+    width: moderateScale(340),
+    height: moderateScale(210),
     backgroundColor: 'white',
-    flex: 1,
     borderRadius: 20,
     paddingVertical: moderateScale(10),
   },
@@ -136,5 +140,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+  },
+  containerDesc: {
+    width: moderateScale(310),
+    height: moderateScale(50),
   },
 });

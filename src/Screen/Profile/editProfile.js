@@ -10,6 +10,8 @@ import Fontisto from 'react-native-vector-icons/Fontisto';
 import Input from '../../Component/Input';
 import Submit from '../../Component/Button';
 
+import {Avatar} from 'react-native-elements';
+
 import {setDataRegister} from '../Register/action';
 import {useDispatch} from 'react-redux';
 
@@ -42,8 +44,19 @@ export default function editProfile(props) {
         RightPress={submitData}
       />
       <ScrollView contentContainerStyle={styles.backgroundColor}>
-        <View style={styles.profileBG}>
-          <Fontisto name="person" size={moderateScale(60)} />
+        <View style={{paddingTop: moderateScale(50)}}>
+          <Avatar
+            size={120}
+            rounded
+            source={{
+              uri: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
+            }}>
+            <Avatar.Accessory
+              name="pencil-alt"
+              type="font-awesome-5"
+              size={22}
+            />
+          </Avatar>
         </View>
         <View style={styles.inputContainer}>
           <Input placeholder="Name" onChangeText={text => setFullname(text)} />

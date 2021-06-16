@@ -19,8 +19,12 @@ import Roboto from '../../Component/Roboto';
 import Tombol from '../../Component/Tombol';
 import Feather from 'react-native-vector-icons/Feather';
 import Foundation from 'react-native-vector-icons/Foundation';
+import {
+  heightPercentageToDP,
+  widthPercentageToDP,
+} from 'react-native-responsive-screen';
 
-export default function Home() {
+export default function Home(props) {
   const [search, setSearch] = useState();
   const [visible, setVisible] = useState(false);
   return (
@@ -68,8 +72,15 @@ export default function Home() {
             color="white"
           />
         </View>
-        <View>
-          <ModalPopup onClose={() => setVisible(false)} visible={visible} />
+        <View style={styles.cardContainer}>
+          <ModalPopup
+            openReview={() => {
+              setVisible(false);
+              props.navigation.navigate('AllUserReview');
+            }}
+            onClose={() => setVisible(false)}
+            visible={visible}
+          />
           <TouchableOpacity
             onPress={() => setVisible(true)}
             activeOpacity={0.8}>
@@ -89,13 +100,16 @@ export default function Home() {
               <View style={styles.underline}>
                 <View
                   style={{
-                    flexDirection: 'row',
                     paddingHorizontal: moderateScale(10),
                     paddingVertical: moderateScale(2),
-                    marginBottom: moderateScale(20),
                   }}>
-                  <Feather name="message-circle" size={moderateScale(15)} />
-                  <Roboto title="123" size={moderateScale(12)} />
+                  <TouchableOpacity
+                    onPress={() => props.navigation.navigate('AllUserReview')}>
+                    <View style={{flexDirection: 'row'}}>
+                      <Feather name="message-circle" size={moderateScale(20)} />
+                      <Roboto title="123" size={moderateScale(14)} />
+                    </View>
+                  </TouchableOpacity>
                 </View>
                 <View></View>
                 <View>
@@ -143,18 +157,19 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   underline: {
+    alignItems: 'flex-end',
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingVertical: moderateScale(10),
   },
-  card: {
-    width: moderateScale(326),
-    height: moderateScale(319),
-    borderRadius: 20,
+  cardContainer: {
+    flex: 1,
+    alignItems: 'center',
   },
   card: {
+    width: moderateScale(340),
+    height: moderateScale(300),
     backgroundColor: 'white',
-    flex: 1,
     borderRadius: 20,
     paddingVertical: moderateScale(10),
   },

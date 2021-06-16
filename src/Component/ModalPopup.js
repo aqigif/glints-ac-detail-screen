@@ -21,7 +21,7 @@ import {
 } from 'react-native-responsive-screen';
 import HomeAddReview from '../Screen/Home/HomeAddReview';
 
-export default function ModalPopup({visible, onClose}) {
+export default function ModalPopup({visible, onClose, openReview}) {
   const [tampak, setTampak] = useState(false);
   return (
     <Modal transparent visible={visible} animationType="fade">
@@ -128,8 +128,12 @@ export default function ModalPopup({visible, onClose}) {
                   paddingHorizontal: moderateScale(10),
                   paddingVertical: moderateScale(2),
                 }}>
-                <Feather name="message-circle" size={moderateScale(15)} />
-                <Roboto title="123" size={moderateScale(12)} />
+                <TouchableOpacity onPress={openReview}>
+                  <View style={{flexDirection: 'row'}}>
+                    <Feather name="message-circle" size={moderateScale(20)} />
+                    <Roboto title="123" size={moderateScale(14)} />
+                  </View>
+                </TouchableOpacity>
               </View>
               <View style={{flexDirection: 'row'}}>
                 <Foundation

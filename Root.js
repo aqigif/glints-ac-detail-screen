@@ -11,11 +11,13 @@ import Home from './src/Screen/Home/Home';
 import Register from './src/Screen/Register/Register';
 import Login from './src/Screen/Login/Login';
 import profile from './src/Screen/Profile/profile';
-import review from './src/Screen/Review/review';
+import AllReview from './src/Screen/Review/review';
 import HomeDetails from './src/Screen/Home/HomeDetails';
 import HomeAddReview from './src/Screen/Home/HomeAddReview';
 import editProfile from './src/Screen/Profile/editProfile';
 import userReview from './src/Screen/Review/userReview';
+
+import {Avatar} from 'react-native-elements';
 
 const Stack = createStackNavigator();
 
@@ -55,10 +57,27 @@ export default function Root() {
   );
 }
 
+const AddReviewStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        options={{headerShown: false}}
+        name="Home"
+        component={Home}
+      />
+      <Stack.Screen
+        options={{headerShown: false}}
+        name="AllUserReview"
+        component={AllReview}
+      />
+    </Stack.Navigator>
+  );
+};
+
 const MyBottomTab = () => {
   return (
     <BottomTab.Navigator
-      initialRouteName="Home"
+      initialRouteName="AddReview"
       labeled={false}
       activeColor="black"
       barStyle={{backgroundColor: 'white'}}
@@ -79,14 +98,19 @@ const MyBottomTab = () => {
             <Foundation name="home" size={23} color={color} />
           ),
         }}
-        name="Home"
-        component={Home}
+        name="AddReview"
+        component={AddReviewStack}
       />
       <BottomTab.Screen
         listeners={false}
         options={{
-          tabBarIcon: ({color}) => (
-            <Fontisto name="person" size={23} color={color} />
+          tabBarIcon: () => (
+            <Avatar
+              size={25}
+              rounded
+              source={{
+                uri: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
+              }}></Avatar>
           ),
         }}
         name="Profile"

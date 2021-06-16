@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
     flex: 1,
     paddingVertical: moderateScale(10),
-    paddingHorizontal: moderateScale(15),
+    paddingHorizontal: moderateScale(5),
     borderBottomEndRadius: 10,
     borderBottomStartRadius: 10,
   },

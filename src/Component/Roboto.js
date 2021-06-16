@@ -8,6 +8,7 @@ export default function Roboto(props) {
       fontSize: props.size ? props.size : 16,
       color: props.color ? props.color : 'black',
       textAlign: props.textAlign ? props.textAlign : 'left',
+      fontWeight: props.fontWeight ? props.fontWeight : 'normal',
       ...props.style,
     },
   });

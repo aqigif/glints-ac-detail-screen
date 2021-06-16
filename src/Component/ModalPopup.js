@@ -11,6 +11,7 @@ import {
 import {Card, Rating} from 'react-native-elements';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
+import Entypo from 'react-native-vector-icons/Entypo';
 import Roboto from '../Component/Roboto';
 import Foundation from 'react-native-vector-icons/Foundation';
 import {moderateScale} from 'react-native-size-matters';
@@ -18,10 +19,12 @@ import {
   heightPercentageToDP,
   widthPercentageToDP,
 } from 'react-native-responsive-screen';
+import HomeAddReview from '../Screen/Home/HomeAddReview';
 
 export default function ModalPopup({visible, onClose}) {
+  const [tampak, setTampak] = useState(false);
   return (
-    <Modal transparent visible={visible}>
+    <Modal transparent visible={visible} animationType="fade">
       <View style={styles.modalBackground}>
         <View style={styles.modal}>
           <View style={styles.closeModal}>
@@ -40,6 +43,8 @@ export default function ModalPopup({visible, onClose}) {
                 <Roboto
                   title="JUDUL"
                   style={{paddingVertical: moderateScale(10)}}
+                  size={24}
+                  fontWeight="bold"
                 />
               </View>
               <View>
@@ -63,36 +68,37 @@ export default function ModalPopup({visible, onClose}) {
               <View
                 style={{
                   flex: 1,
+                  marginTop: moderateScale(5),
                 }}>
                 <View
                   style={{
                     flexDirection: 'row',
-                    justifyContent: 'space-around',
-                    backgroundColor: 'red',
+                    justifyContent: 'flex-end',
+                    marginRight: moderateScale(23),
                   }}>
-                  <Rating
-                    ratingCount={1}
-                    imageSize={20}
-                    startingValue={1}
-                    readonly
-                  />
-                  <Rating
-                    ratingCount={1}
-                    imageSize={20}
-                    startingValue={0}
-                    readonly
-                  />
+                  <View style={{marginRight: moderateScale(45)}}>
+                    <Rating
+                      ratingCount={1}
+                      imageSize={20}
+                      startingValue={1}
+                      readonly
+                    />
+                  </View>
+                  <TouchableOpacity onPress={() => setTampak(true)}>
+                    <Entypo name="star" size={21} color="grey" />
+                  </TouchableOpacity>
                 </View>
                 <View
                   style={{
                     alignContent: 'flex-end',
                     alignItems: 'flex-end',
                     justifyContent: 'space-around',
-                    backgroundColor: 'yellow',
                     flex: 1,
                   }}>
                   <View style={{flexDirection: 'row'}}>
-                    <Roboto title="9/10" />
+                    <View style={{marginRight: moderateScale(8)}}>
+                      <Roboto title="9/10" />
+                    </View>
                     <Roboto title="Rate This" />
                   </View>
                   <View
@@ -136,6 +142,7 @@ export default function ModalPopup({visible, onClose}) {
           </Card>
         </View>
       </View>
+      <HomeAddReview Close={() => setTampak(false)} tampak={tampak} />
     </Modal>
   );
 }
@@ -150,7 +157,7 @@ const styles = StyleSheet.create({
   modal: {
     alignSelf: 'center',
     width: widthPercentageToDP(99),
-    height: heightPercentageToDP(80),
+    height: moderateScale(475),
     backgroundColor: 'white',
     borderRadius: 20,
     paddingVertical: moderateScale(10),

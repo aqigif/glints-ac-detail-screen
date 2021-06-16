@@ -15,24 +15,15 @@ import Feather from 'react-native-vector-icons/Feather';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import Foundation from 'react-native-vector-icons/Foundation';
 import Roboto from '../../Component/Roboto';
+import {widthPercentageToDP} from 'react-native-responsive-screen';
 
 export default function HomeDetails() {
   const [search, setSearch] = useState();
   return (
     <SafeAreaView style={styles.fullScreen}>
       <ScrollView style={styles.scrollView}>
-        <SearchBar
-          placeholder="Search movies"
-          containerStyle={{
-            backgroundColor: 'black',
-            paddingBottom: moderateScale(20),
-          }}
-          inputContainerStyle={{backgroundColor: 'white'}}
-          onChangeText={text => setSearch(text)}
-          value={search}
-        />
-        <View style={styles.card}>
-          <Card>
+        <View>
+          <Card containerStyle={styles.card}>
             <Image
               source={require('../../Assets/Images/tes.png')}
               style={styles.trailer}
@@ -55,26 +46,64 @@ export default function HomeDetails() {
             <View
               style={{borderBottomColor: '#B7B7B7', borderBottomWidth: 1}}
             />
-            <View style={styles.rating}>
-              <View>
-                <Image
+            <View style={{flexDirection: 'row'}}>
+              <View style={{backgroundColor: 'green'}}>
+                {/* <Image
                   source={require('../../Assets/Images/tes.png')}
                   style={styles.image}
                   resizeMode="contain"
-                />
+                /> */}
               </View>
-              <View>
-                <Rating ratingCount={1} imageSize={20} readonly />
-                <Roboto title="9/10" />
-              </View>
-              <View>
-                <Rating ratingCount={1} imageSize={20} readonly />
-                <TouchableOpacity>
-                  <Roboto title="Rate This" />
-                </TouchableOpacity>
-              </View>
-              <View>
-                <Roboto title="Description jhbahjdbajdblabdlakblk ajhsbd" />
+              <View
+                style={{
+                  flex: 1,
+                }}>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-around',
+                    backgroundColor: 'red',
+                  }}>
+                  <Rating
+                    ratingCount={1}
+                    imageSize={20}
+                    startingValue={1}
+                    readonly
+                  />
+                  <Rating
+                    ratingCount={1}
+                    imageSize={20}
+                    startingValue={0}
+                    readonly
+                  />
+                </View>
+                <View
+                  style={{
+                    alignContent: 'flex-end',
+                    alignItems: 'flex-end',
+                    justifyContent: 'space-around',
+                    backgroundColor: 'yellow',
+                    flex: 1,
+                  }}>
+                  <View style={{flexDirection: 'row'}}>
+                    <Roboto title="9/10" />
+                    <Roboto title="Rate This" />
+                  </View>
+                  <View
+                    style={{
+                      paddingLeft: moderateScale(25),
+                      paddingTop: moderateScale(10),
+                      backgroundColor: 'white',
+                      flex: 1,
+                      alignContent: 'center',
+                      alignItems: 'center',
+                    }}>
+                    <Roboto
+                      title="Description jhbahjdbajdblabdlakblk ajhsbd"
+                      textAlign="justify"
+                    />
+                  </View>
+                </View>
               </View>
             </View>
             <View
@@ -90,7 +119,7 @@ export default function HomeDetails() {
                 <Feather name="message-circle" size={moderateScale(15)} />
                 <Roboto title="123" size={moderateScale(12)} />
               </View>
-              <View>
+              <View style={{flexDirection: 'row'}}>
                 <Foundation
                   name="share"
                   size={moderateScale(20)}
@@ -153,6 +182,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     alignItems: 'stretch',
     paddingTop: moderateScale(10),
+    backgroundColor: 'red',
   },
 
   tes: {

@@ -14,6 +14,8 @@ import profile from './src/Screen/Profile/profile';
 import review from './src/Screen/Review/review';
 import HomeDetails from './src/Screen/Home/HomeDetails';
 import HomeAddReview from './src/Screen/Home/HomeAddReview';
+import editProfile from './src/Screen/Profile/editProfile';
+import userReview from './src/Screen/Review/userReview';
 
 const Stack = createStackNavigator();
 
@@ -43,6 +45,11 @@ export default function Root() {
           name="Login"
           component={Login}
         />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="editProfile"
+          component={editProfile}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -55,7 +62,7 @@ const MyBottomTab = () => {
       labeled={false}
       activeColor="black"
       barStyle={{backgroundColor: 'white'}}
-      screenOptions={transitionScreen}>
+      screenOptions={() => transitionScreen}>
       <BottomTab.Screen
         options={{
           tabBarColor: 'pink',
@@ -64,18 +71,23 @@ const MyBottomTab = () => {
           ),
         }}
         name="Review"
-        component={review}
+        component={HomeAddReview}
       />
       <BottomTab.Screen
         options={{
-          tabBarIcon: () => <Foundation name="home" size={23} color="black" />,
+          tabBarIcon: ({color}) => (
+            <Foundation name="home" size={23} color={color} />
+          ),
         }}
         name="Home"
         component={Home}
       />
       <BottomTab.Screen
+        listeners={false}
         options={{
-          tabBarIcon: () => <Fontisto name="person" size={23} color="black" />,
+          tabBarIcon: ({color}) => (
+            <Fontisto name="person" size={23} color={color} />
+          ),
         }}
         name="Profile"
         component={profile}

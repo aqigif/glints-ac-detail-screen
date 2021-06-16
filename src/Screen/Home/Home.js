@@ -10,8 +10,8 @@ import {
 import {SafeAreaView} from 'react-native-safe-area-context';
 
 import {SearchBar, Card} from 'react-native-elements';
-import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import FastImage from 'react-native-fast-image';
+import ModalPopup from '../../Component/ModalPopup';
 import {moderateScale} from 'react-native-size-matters';
 
 import Fontisto from 'react-native-vector-icons/Fontisto';
@@ -21,8 +21,8 @@ import Feather from 'react-native-vector-icons/Feather';
 import Foundation from 'react-native-vector-icons/Foundation';
 
 export default function Home() {
-  const BottomTab = createMaterialBottomTabNavigator();
   const [search, setSearch] = useState();
+  const [visible, setVisible] = useState(false);
   return (
     <SafeAreaView style={styles.fullScreen}>
       <ScrollView style={styles.scrollView}>
@@ -68,40 +68,47 @@ export default function Home() {
             color="white"
           />
         </View>
-        <TouchableOpacity style={styles.card}>
-          <Card>
-            <Image
-              source={require('../../Assets/Images/tes.png')}
-              style={styles.image}
-              resizeMode="contain"
-            />
-            <Roboto
-              title="DESCRIPTION"
-              style={{paddingVertical: moderateScale(5)}}
-            />
-            <View style={{borderBottomColor: 'B7B7B7', borderBottomWidth: 1}} />
-            <View style={styles.underline}>
+        <View>
+          <ModalPopup onClose={() => setVisible(false)} visible={visible} />
+          <TouchableOpacity
+            onPress={() => setVisible(true)}
+            activeOpacity={0.8}>
+            <Card containerStyle={styles.card}>
+              <Image
+                source={require('../../Assets/Images/tes.png')}
+                style={styles.image}
+                resizeMode="contain"
+              />
+              <Roboto
+                title="DESCRIPTION"
+                style={{paddingVertical: moderateScale(5)}}
+              />
               <View
-                style={{
-                  flexDirection: 'row',
-                  paddingHorizontal: moderateScale(10),
-                  paddingVertical: moderateScale(2),
-                  marginBottom: moderateScale(20),
-                }}>
-                <Feather name="message-circle" size={moderateScale(15)} />
-                <Roboto title="123" size={moderateScale(12)} />
+                style={{borderBottomColor: 'B7B7B7', borderBottomWidth: 1}}
+              />
+              <View style={styles.underline}>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    paddingHorizontal: moderateScale(10),
+                    paddingVertical: moderateScale(2),
+                    marginBottom: moderateScale(20),
+                  }}>
+                  <Feather name="message-circle" size={moderateScale(15)} />
+                  <Roboto title="123" size={moderateScale(12)} />
+                </View>
+                <View></View>
+                <View>
+                  <Foundation
+                    name="share"
+                    size={moderateScale(20)}
+                    style={{paddingVertical: moderateScale(2)}}
+                  />
+                </View>
               </View>
-              <View></View>
-              <View>
-                <Foundation
-                  name="share"
-                  size={moderateScale(20)}
-                  style={{paddingVertical: moderateScale(2)}}
-                />
-              </View>
-            </View>
-          </Card>
-        </TouchableOpacity>
+            </Card>
+          </TouchableOpacity>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
@@ -143,6 +150,7 @@ const styles = StyleSheet.create({
   card: {
     width: moderateScale(326),
     height: moderateScale(319),
+    borderRadius: 20,
   },
   card: {
     backgroundColor: 'white',

@@ -25,10 +25,11 @@ import {
 } from 'react-native-responsive-screen';
 
 import {useDispatch, useSelector} from 'react-redux';
-import {getMovie} from './Redux/action';
+import {getMovie, movieDetail} from './Redux/action';
 
 export default function Home(props) {
   const dispatch = useDispatch();
+  const [dataDetail, setDataDetail] = useState({});
   const [search, setSearch] = useState();
   const [visible, setVisible] = useState(false);
 
@@ -40,7 +41,7 @@ export default function Home(props) {
   }, []);
 
   const dataMovie = useSelector(state => state.Home.listData);
-
+  console.log('dataDetail', dataDetail?.title);
   return (
     <SafeAreaView style={styles.fullScreen}>
       <ScrollView style={styles.scrollView}>
@@ -92,14 +93,24 @@ export default function Home(props) {
               setVisible(false);
               props.navigation.navigate('AllUserReview');
             }}
-            onClose={() => setVisible(false)}
+            onClose={() => {
+              setDataDetail({}); //state
+              dispatch(movieDetail({})); //redux
+              setVisible(false);
+            }}
+            data={dataDetail}
             visible={visible}
           />
           {dataMovie.map((item, index) => {
             return (
               <TouchableOpacity
                 key={index}
-                onPress={() => setVisible(true)}
+                onPress={() => {
+                  console.log('onclick', item, index);
+                  setDataDetail(item); //state
+                  dispatch(movieDetail(item)); //redux
+                  setVisible(true);
+                }}
                 activeOpacity={0.8}>
                 <Card containerStyle={styles.card}>
                   <FastImage

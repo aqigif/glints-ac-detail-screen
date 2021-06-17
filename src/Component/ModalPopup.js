@@ -24,18 +24,23 @@ import {useDispatch, useSelector} from 'react-redux';
 import FastImage from 'react-native-fast-image';
 import {getMovie} from '../Screen/Home/Redux/action';
 
-export default function ModalPopup({visible, onClose, openReview}) {
+export default function ModalPopup({visible, onClose, openReview, data}) {
   const dispatch = useDispatch();
   const [tampak, setTampak] = useState(false);
 
-  useEffect(() => {
-    const filter = {
-      page: 3,
-    };
-    dispatch(getMovie(filter));
-  }, []);
+  // useEffect(() => {
+  //   const filter = {
+  //     page: 3,
+  //   };
+  //   dispatch(getMovie(filter));
+  // }, []);
 
-  const dataMovie = useSelector(state => state.Home.listData);
+  const dataMovieDetaildariReducer = useSelector(
+    state => state.Home.dataDetail,
+  );
+  const dataMovie = dataMovieDetaildariReducer; //redux
+  // const dataMovie = data; ///state
+  console.log(dataMovieDetaildariReducer);
   return (
     <Modal transparent visible={visible} animationType="fade">
       <View style={styles.modalBackground}>
@@ -49,14 +54,14 @@ export default function ModalPopup({visible, onClose, openReview}) {
             <FastImage
               style={styles.trailer}
               source={{
-                uri: `https://image.tmdb.org/t/p/original${dataMovie.poster_path}`,
+                uri: `https://image.tmdb.org/t/p/original${dataMovie?.poster_path}`,
               }}
               resizeMode="contain"
             />
             <View style={styles.genre}>
               <View>
                 <Roboto
-                  title={dataMovie.original_title}
+                  title={dataMovie?.original_title}
                   style={{paddingVertical: moderateScale(10)}}
                   size={24}
                   fontWeight="bold"

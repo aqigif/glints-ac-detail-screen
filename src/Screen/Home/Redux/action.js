@@ -11,3 +11,10 @@ export const setMovie = data => {
     payload: data,
   };
 };
+
+export const movieDetail = data => {
+  return {
+    type: 'MOVIE_DETAIL',
+    dataDetail: data,
+  };
+};

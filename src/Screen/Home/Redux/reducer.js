@@ -9,6 +9,11 @@ export default (state = initialState, action) => {
         ...state,
         listData: action.payload,
       };
+    case 'MOVIE_DETAIL':
+      return {
+        ...state,
+        dataDetail: action.dataDetail,
+      };
     default:
       return state;
   }

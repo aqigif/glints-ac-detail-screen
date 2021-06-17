@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -24,9 +24,23 @@ import {
   widthPercentageToDP,
 } from 'react-native-responsive-screen';
 
+import {useDispatch, useSelector} from 'react-redux';
+import {getMovie} from './Redux/action';
+
 export default function Home(props) {
+  const dispatch = useDispatch();
   const [search, setSearch] = useState();
   const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const filter = {
+      page: 3,
+    };
+    dispatch(getMovie(filter));
+  }, []);
+
+  const dataMovie = useSelector(state => state.Home.listData);
+
   return (
     <SafeAreaView style={styles.fullScreen}>
       <ScrollView style={styles.scrollView}>
@@ -81,47 +95,64 @@ export default function Home(props) {
             onClose={() => setVisible(false)}
             visible={visible}
           />
-          <TouchableOpacity
-            onPress={() => setVisible(true)}
-            activeOpacity={0.8}>
-            <Card containerStyle={styles.card}>
-              <Image
-                source={require('../../Assets/Images/tes.png')}
-                style={styles.image}
-                resizeMode="contain"
-              />
-              <Roboto
-                title="DESCRIPTION"
-                style={{paddingVertical: moderateScale(5)}}
-              />
-              <View
-                style={{borderBottomColor: 'B7B7B7', borderBottomWidth: 1}}
-              />
-              <View style={styles.underline}>
-                <View
-                  style={{
-                    paddingHorizontal: moderateScale(10),
-                    paddingVertical: moderateScale(2),
-                  }}>
-                  <TouchableOpacity
-                    onPress={() => props.navigation.navigate('AllUserReview')}>
-                    <View style={{flexDirection: 'row'}}>
-                      <Feather name="message-circle" size={moderateScale(20)} />
-                      <Roboto title="123" size={moderateScale(14)} />
-                    </View>
-                  </TouchableOpacity>
-                </View>
-                <View></View>
-                <View>
-                  <Foundation
-                    name="share"
-                    size={moderateScale(20)}
-                    style={{paddingVertical: moderateScale(2)}}
+          {dataMovie.map((item, index) => {
+            return (
+              <TouchableOpacity
+                key={index}
+                onPress={() => setVisible(true)}
+                activeOpacity={0.8}>
+                <Card containerStyle={styles.card}>
+                  <FastImage
+                    style={styles.image}
+                    source={{
+                      uri: `https://image.tmdb.org/t/p/original${item.poster_path}`,
+                    }}
+                    resizeMode="contain"
                   />
-                </View>
-              </View>
-            </Card>
-          </TouchableOpacity>
+                  <View
+                    style={{
+                      height: moderateScale(80),
+                    }}>
+                    <Roboto
+                      title={item.overview}
+                      style={{paddingVertical: moderateScale(5)}}
+                    />
+                  </View>
+                  <View
+                    style={{borderBottomColor: 'B7B7B7', borderBottomWidth: 1}}
+                  />
+                  <View style={styles.underline}>
+                    <View
+                      style={{
+                        paddingHorizontal: moderateScale(10),
+                        paddingVertical: moderateScale(2),
+                      }}>
+                      <TouchableOpacity
+                        onPress={() =>
+                          props.navigation.navigate('AllUserReview')
+                        }>
+                        <View style={{flexDirection: 'row'}}>
+                          <Feather
+                            name="message-circle"
+                            size={moderateScale(20)}
+                          />
+                          <Roboto title="123" size={moderateScale(14)} />
+                        </View>
+                      </TouchableOpacity>
+                    </View>
+                    <View></View>
+                    <View>
+                      <Foundation
+                        name="share"
+                        size={moderateScale(20)}
+                        style={{paddingVertical: moderateScale(2)}}
+                      />
+                    </View>
+                  </View>
+                </Card>
+              </TouchableOpacity>
+            );
+          })}
         </View>
       </ScrollView>
     </SafeAreaView>

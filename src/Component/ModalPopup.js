@@ -20,9 +20,22 @@ import {
   widthPercentageToDP,
 } from 'react-native-responsive-screen';
 import HomeAddReview from '../Screen/Home/HomeAddReview';
+import {useDispatch, useSelector} from 'react-redux';
+import FastImage from 'react-native-fast-image';
+import {getMovie} from '../Screen/Home/Redux/action';
 
 export default function ModalPopup({visible, onClose, openReview}) {
+  const dispatch = useDispatch();
   const [tampak, setTampak] = useState(false);
+
+  useEffect(() => {
+    const filter = {
+      page: 3,
+    };
+    dispatch(getMovie(filter));
+  }, []);
+
+  const dataMovie = useSelector(state => state.Home.listData);
   return (
     <Modal transparent visible={visible} animationType="fade">
       <View style={styles.modalBackground}>
@@ -33,15 +46,17 @@ export default function ModalPopup({visible, onClose, openReview}) {
             </TouchableOpacity>
           </View>
           <Card containerStyle={styles.card}>
-            <Image
-              source={require('../Assets/Images/tes.png')}
+            <FastImage
               style={styles.trailer}
+              source={{
+                uri: `https://image.tmdb.org/t/p/original${dataMovie.poster_path}`,
+              }}
               resizeMode="contain"
             />
             <View style={styles.genre}>
               <View>
                 <Roboto
-                  title="JUDUL"
+                  title={dataMovie.original_title}
                   style={{paddingVertical: moderateScale(10)}}
                   size={24}
                   fontWeight="bold"

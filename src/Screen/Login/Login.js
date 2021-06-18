@@ -1,10 +1,11 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Alert,
   SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
+  ToastAndroid,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -14,22 +15,32 @@ import {
 } from 'react-native-responsive-screen';
 import {moderateScale} from 'react-native-size-matters';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import Submit from '../../Component/Button';
 import Input from '../../Component/Input';
+import {loginAction} from './action';
 
 export default function Login(props) {
-  const dataRegister = useSelector(state => state.Register);
+  const dispatch = useDispatch();
+  const dataLogin = useSelector(state => state.Login);
   const [Email, setEmail] = useState('');
   const [Password, setPassword] = useState('');
 
   const submitLogin = () => {
-    if (dataRegister.email === Email && dataRegister.password === Password) {
-      props.navigation.navigate('MyBottomTab');
-    } else {
-      Alert.alert('Error', 'Email or Password is Wrong');
-    }
+    dispatch(loginAction({email: Email, password: Password}));
   };
+
+  useEffect(() => {
+    if (dataLogin?.responseError?.error) {
+      setPassword('');
+      setEmail('');
+      ToastAndroid.showWithGravity(
+        `Sorry, ${dataLogin?.payload?.error || 'Something went wrong'}`,
+        ToastAndroid.LONG,
+        ToastAndroid.BOTTOM,
+      );
+    }
+  }, [dataLogin]);
 
   return (
     <SafeAreaView style={styles.fullScreen}>
@@ -41,9 +52,14 @@ export default function Login(props) {
             color={'orange'}
           />
           <View style={styles.input}>
-            <Input placeholder="Email" onChangeText={text => setEmail(text)} />
+            <Input
+              placeholder="Email"
+              value={Email}
+              onChangeText={text => setEmail(text)}
+            />
             <Input
               placeholder="Password"
+              value={Password}
               onChangeText={text => setPassword(text)}
               secureTextEntry
             />

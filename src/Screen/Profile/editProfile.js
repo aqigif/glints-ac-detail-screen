@@ -14,6 +14,7 @@ import {Avatar} from 'react-native-elements';
 
 import {setDataRegister} from '../Register/action';
 import {useDispatch} from 'react-redux';
+import {logoutAction} from '../Login/action';
 
 export default function editProfile(props) {
   const dispatch = useDispatch();
@@ -72,15 +73,7 @@ export default function editProfile(props) {
           />
         </View>
         <View style={styles.submit}>
-          <Submit
-            title="LOG OUT"
-            press={() =>
-              props.navigation.reset({
-                index: 0,
-                routes: [{name: 'Login'}],
-              })
-            }
-          />
+          <Submit title="LOG OUT" press={() => dispatch(logoutAction())} />
         </View>
       </ScrollView>
     </SafeAreaView>

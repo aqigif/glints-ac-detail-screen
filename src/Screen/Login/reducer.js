@@ -9,10 +9,31 @@ export const loginReducer = (state = initialState, action) => {
     case 'LOGIN': {
       return {
         ...state,
-        isLogin: true,
+        ...action,
       };
     }
 
+    case 'LOGIN_SUCCESS': {
+      return {
+        ...state,
+        ...action,
+        isLogin: true,
+      };
+    }
+    case 'LOGIN_FAILED': {
+      return {
+        ...state,
+        ...action,
+        isLogin: false,
+      };
+    }
+    case 'LOGOUT': {
+      return {
+        ...state,
+        ...action,
+        isLogin: false,
+      };
+    }
     default:
       return state;
   }

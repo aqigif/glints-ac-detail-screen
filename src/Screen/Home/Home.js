@@ -101,7 +101,7 @@ export default function Home(props) {
             data={dataDetail}
             visible={visible}
           />
-          {dataMovie.map((item, index) => {
+          {Array.from(dataMovie || []).map((item, index) => {
             return (
               <TouchableOpacity
                 key={index}

@@ -3,21 +3,18 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 
-import Fontisto from 'react-native-vector-icons/Fontisto';
 import Foundation from 'react-native-vector-icons/Foundation';
 import Feather from 'react-native-vector-icons/Feather';
 
 import Home from './src/Screen/Home/Home';
 import Register from './src/Screen/Register/Register';
 import Login from './src/Screen/Login/Login';
-import profile from './src/Screen/Profile/profile';
 import AllReview from './src/Screen/Review/review';
-import HomeDetails from './src/Screen/Home/HomeDetails';
-import HomeAddReview from './src/Screen/Home/HomeAddReview';
 import editProfile from './src/Screen/Profile/editProfile';
 import userReview from './src/Screen/Review/userReview';
 
 import {Avatar} from 'react-native-elements';
+import {useSelector} from 'react-redux';
 
 const Stack = createStackNavigator();
 
@@ -27,57 +24,47 @@ const transitionScreen = {
 const BottomTab = createMaterialBottomTabNavigator();
 
 export default function Root() {
+  const isLoggedIn = useSelector(state => state?.Login?.responseSuccess?.token);
+  console.log(isLoggedIn);
   return (
     <NavigationContainer>
-      <Stack.Navigator
-        initialRouteName="Register"
-        screenOptions={transitionScreen}>
-        <Stack.Screen
-          options={{headerShown: false}}
-          name="MyBottomTab"
-          component={MyBottomTab}
-        />
-        <Stack.Screen
-          options={{headerShown: false}}
-          name="Register"
-          component={Register}
-        />
-        <Stack.Screen
-          options={{headerShown: false}}
-          name="Login"
-          component={Login}
-        />
-        <Stack.Screen
-          options={{headerShown: false}}
-          name="editProfile"
-          component={editProfile}
-        />
+      <Stack.Navigator screenOptions={transitionScreen}>
+        {isLoggedIn ? (
+          <>
+            <Stack.Screen
+              options={{headerShown: false}}
+              name="MyBottomTab"
+              component={MyBottomTab}
+            />
+            <Stack.Screen
+              options={{headerShown: false}}
+              name="UserReview"
+              component={userReview}
+            />
+          </>
+        ) : (
+          <>
+            <Stack.Screen
+              options={{headerShown: false}}
+              name="Login"
+              component={Login}
+            />
+            <Stack.Screen
+              options={{headerShown: false}}
+              name="Register"
+              component={Register}
+            />
+          </>
+        )}
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
 
-const AddReviewStack = () => {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen
-        options={{headerShown: false}}
-        name="Home"
-        component={Home}
-      />
-      <Stack.Screen
-        options={{headerShown: false}}
-        name="AllUserReview"
-        component={AllReview}
-      />
-    </Stack.Navigator>
-  );
-};
-
 const MyBottomTab = () => {
   return (
     <BottomTab.Navigator
-      initialRouteName="AddReview"
+      initialRouteName="Home"
       labeled={false}
       activeColor="black"
       barStyle={{backgroundColor: 'white'}}
@@ -90,7 +77,7 @@ const MyBottomTab = () => {
           ),
         }}
         name="Review"
-        component={userReview}
+        component={AllReview}
       />
       <BottomTab.Screen
         options={{
@@ -98,8 +85,8 @@ const MyBottomTab = () => {
             <Foundation name="home" size={23} color={color} />
           ),
         }}
-        name="AddReview"
-        component={AddReviewStack}
+        name="Home"
+        component={Home}
       />
       <BottomTab.Screen
         listeners={false}
@@ -114,7 +101,7 @@ const MyBottomTab = () => {
           ),
         }}
         name="Profile"
-        component={profile}
+        component={editProfile}
         labeled={true}
       />
     </BottomTab.Navigator>

@@ -166,7 +166,11 @@ export default function ModalPopup({visible, onClose, openReview, data}) {
           </Card>
         </View>
       </View>
-      <HomeAddReview Close={() => setTampak(false)} tampak={tampak} />
+      <HomeAddReview
+        data={dataMovie}
+        Close={() => setTampak(false)}
+        tampak={tampak}
+      />
     </Modal>
   );
 }

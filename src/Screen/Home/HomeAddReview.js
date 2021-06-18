@@ -12,12 +12,15 @@ import {widthPercentageToDP} from 'react-native-responsive-screen';
 import {moderateScale} from 'react-native-size-matters';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import {useDispatch} from 'react-redux';
 import Roboto from '../../Component/Roboto';
+import {giveReview} from './Redux/action';
 
 export default function HomeAddReview({tampak, Close}) {
   const [rating, setRating] = useState([5]);
   const [headline, setHeadline] = useState();
   const [review, setReview] = useState();
+  const dispatch = useDispatch();
   return (
     <Modal transparent visible={tampak} animationType="slide">
       <View style={styles.modalBackground}>
@@ -63,7 +66,19 @@ export default function HomeAddReview({tampak, Close}) {
             />
           </View>
           <View style={{paddingBottom: moderateScale(5)}}>
-            <Button title="Submit" buttonStyle={styles.button} />
+            <Button
+              title="Submit"
+              buttonStyle={styles.button}
+              onPress={() => {
+                dispatch(
+                  giveReview({
+                    movie_id: 2,
+                    rating: rating,
+                    review: review,
+                  }),
+                );
+              }}
+            />
           </View>
         </View>
       </View>

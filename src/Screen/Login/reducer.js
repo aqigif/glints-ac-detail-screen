@@ -2,6 +2,9 @@ const initialState = {
   isLogin: false,
   password: '',
   email: '',
+  responseSuccess: {
+    token: null,
+  },
 };
 
 export const loginReducer = (state = initialState, action) => {

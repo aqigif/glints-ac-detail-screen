@@ -7,6 +7,7 @@ import Foundation from 'react-native-vector-icons/Foundation';
 import Feather from 'react-native-vector-icons/Feather';
 
 import Home from './src/Screen/Home/Home';
+import HomeCart from './src/Screen/Home/HomeCart';
 import Register from './src/Screen/Register/Register';
 import Login from './src/Screen/Login/Login';
 import AllReview from './src/Screen/Review/review';
@@ -86,7 +87,7 @@ const MyBottomTab = () => {
           ),
         }}
         name="Home"
-        component={Home}
+        component={HomeCart}
       />
       <BottomTab.Screen
         listeners={false}

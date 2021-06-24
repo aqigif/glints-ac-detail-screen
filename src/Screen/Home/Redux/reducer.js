@@ -1,5 +1,6 @@
 const initialState = {
-  listData: [],
+  listData: [{}],
+  listCart: [{}],
 };
 
 export default (state = initialState, action) => {
@@ -13,6 +14,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         dataDetail: action.dataDetail,
+      };
+    case 'SAVE_TO_CART':
+      const theListCart = Array.from(state?.listCart || []);
+      return {
+        listCart: [...theListCart, action.product],
       };
     default:
       return state;

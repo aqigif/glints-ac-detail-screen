@@ -39,3 +39,10 @@ export const giveReviewFailed = request => {
     request,
   };
 };
+
+export const saveToCart = product => {
+  return {
+    type: 'SAVE_TO_CART',
+    product,
+  };
+};
